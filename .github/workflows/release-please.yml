@@ -16,3 +16,9 @@ jobs:
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          # Use a PAT (classic, scopes: repo + workflow) so that PRs and
+          # tags Release Please creates trigger downstream workflows. The
+          # default GITHUB_TOKEN is deliberately inert for cascading events
+          # (anti-loop protection), which leaves required status checks
+          # stuck on Release Please PRs.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
