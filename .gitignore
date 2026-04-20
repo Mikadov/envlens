@@ -1,0 +1,7 @@
+bin/
+dist/
+coverage.out
+e2e/testdata/envlens
+e2e/testdata/envlens.exe
+.env*
+!.env.example
