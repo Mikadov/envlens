@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"runtime/debug"
 
 	"github.com/Mikadov/envlens/internal/diff"
 	"github.com/Mikadov/envlens/internal/display"
@@ -56,10 +57,19 @@ func run(args []string, stdout, stderr io.Writer) int {
 }
 
 func versionString() string {
-	if version == "dev" {
-		return "envlens dev"
+	if version != "dev" {
+		return "envlens v" + version
 	}
-	return "envlens v" + version
+	// GoReleaser injects the tag via ldflags, so the branch above covers
+	// release binaries. When installed via `go install <module>@<tag>` there
+	// is no ldflags step, so fall back to the module version recorded in the
+	// build info.
+	if info, ok := debug.ReadBuildInfo(); ok {
+		if v := info.Main.Version; v != "" && v != "(devel)" {
+			return "envlens " + v
+		}
+	}
+	return "envlens dev"
 }
 
 func printUsage(w io.Writer) {
