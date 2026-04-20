@@ -47,7 +47,7 @@ jobs:
           go-version: "1.22"
           cache: true
 
-      - uses: golangci/golangci-lint-action@v6
+      - uses: golangci/golangci-lint-action@v9
         with:
           # Pinned to v1 line because the project config file uses v1 schema.
           # Bump intentionally (and migrate the config) rather than tracking latest.
