@@ -29,6 +29,7 @@ jobs:
             build
             revert
           requireScope: false
-          subjectPattern: ^[a-z].+[^.]$
+          # Accept either case so Dependabot's "Bump X from Y to Z" titles pass.
+          subjectPattern: ^[A-Za-z].+[^.]$
           subjectPatternError: |
-            The subject must start with a lowercase letter and not end with a period.
+            The subject must start with a letter and not end with a period.

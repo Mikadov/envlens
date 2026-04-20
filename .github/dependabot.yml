@@ -16,3 +16,8 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      # v9+ of this action requires golangci-lint v2; the project config is
+      # still v1 schema. Accept patch/minor bumps, gate major on a v2 migration.
+      - dependency-name: "golangci/golangci-lint-action"
+        update-types: ["version-update:semver-major"]

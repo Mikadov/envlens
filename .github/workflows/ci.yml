@@ -21,10 +21,14 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.25"
           cache: true
 
       - name: Run tests with coverage
+        # Use bash on every OS. PowerShell (the Windows default) misparses
+        # `-coverprofile=coverage.out` and splits it at the `.`, which causes
+        # `go test` to treat `.out` as a package path.
+        shell: bash
         run: go test -race -coverprofile=coverage.out -covermode=atomic ./...
 
       - name: Upload coverage to Codecov
@@ -44,7 +48,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.25"
           cache: true
 
       - uses: golangci/golangci-lint-action@v6
@@ -61,7 +65,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.25"
           cache: true
 
       - name: Install govulncheck
@@ -92,7 +96,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.25"
           cache: true
 
       - name: Build
